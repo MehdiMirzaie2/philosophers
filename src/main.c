@@ -13,29 +13,53 @@ int make_philo_specs(t_philo_specs *philo, char **av)
 	return (0);
 }
 
+int mails = 0;
+pthread_mutex_t mutex;
+
 void *routine()
 {
-	printf("hello from routine\n");
-	sleep(3);
-	printf("ending thread\n");
-	return (NULL);
+	for (int i = 0; i < 10000000; i++)
+	{
+		pthread_mutex_lock(&mutex);
+		mails++;
+		pthread_mutex_unlock(&mutex);
+	}
 }
 
 int main(int ac, char **av)
-{	
-	t_philo_specs	philo;
+{
+	t_philo_specs	*philo;
 	pthread_t		thread[ft_atoi(av[1])];
 	int				i;
 
-	if (ac == 6)
-		if (make_philo_specs(&philo, av) < 0)
-			return (-1);
-	i = 0;
-	
+	philo = malloc(sizeof(t_philo_specs));
+	if (ac != 6)
+		return (-1);
+	if (make_philo_specs(philo, av) < 0)
+		return (-1);
+	i = -1;
+	while (++i < philo->number_of_philo)
+	{
+		if (pthread_create(thread + i, NULL, &routine, NULL) != 0)
+		{
+			perror("Failed to create thread");
+			return (1);
+		}
+		printf("thread %d has finished execution\n", i);
+	}
+	i = -1;
+	while (++i < philo->number_of_philo)
+	{
+		if (pthread_join(thread[i], NULL) != 0)
+			return (2);
+		printf("Thread %d has finished execution\n", i);
+	}
+	pthread_mutex_destroy(&mutex);
+	printf("Number of mails: %d\n", mails);
+	return (0);
+}
 	// pthread_t thread[], t2;
 	// pthread_create(&t1, NULL, &routine, NULL);
 	// pthread_create(&t2, NULL, &routine, NULL);
 	// pthread_join(t1, NULL);
 	// pthread_join(t2, NULL);
-	return (0);
-}

@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <sys/time.h>
+#include <stdlib.h>
 
 typedef struct s_philo_specs {
 	int	number_of_philo;

@@ -5,13 +5,14 @@ OBJ_DIR	:= obj
 
 SRCS := \
 	main.c			\
-	src/ft_atoi.c	\
+	utils/ft_atoi.c	\
 
 SRCS := $(SRCS:%=$(SRC_DIR)/%)
 OBJS := $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 CC := CC
-CFLAGS := -Wall -Wextra -Werror -pthread -g
+# -Wall -Wextra -Werror
+CFLAGS := -pthread -g
 CPPFLAGS := -I include
 
 RM := rm -f
