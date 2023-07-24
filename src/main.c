@@ -4,11 +4,11 @@
 
 int make_philo_specs(t_philo_specs *philo, char **av)
 {
-	if ((philo->number_of_philo = ft_atoi(av[1]) < 0)
-			|| (philo->time_to_die = ft_atoi(av[2]) < 0)
-			|| (philo->time_to_eat = ft_atoi(av[3]) < 0)
-			|| (philo->time_to_sleep = ft_atoi(av[4]) < 0)
-			|| (philo->x_times_to_eat = ft_atoi(av[5]) < 0))
+	if ((philo->number_of_philo = atoi(av[1])) < 0
+			|| (philo->time_to_die = atoi(av[2])) < 0
+			|| (philo->time_to_eat = atoi(av[3])) < 0
+			|| (philo->time_to_sleep = atoi(av[4])) < 0
+			|| (philo->x_times_to_eat = atoi(av[5])) < 0)
 			return (-1);
 	return (0);
 }
