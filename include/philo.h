@@ -4,18 +4,23 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <pthread.h>
+# include <unistd.h>
 
 # define EATING 0
 # define SLEEPING 1
 # define THINKING 2
+# define FORK 3
 
 typedef struct s_philo {
+	int				index;
 	pthread_t 		*threads;
 	pthread_mutex_t mutexes;
-	pthread_mutex_t fork;
 	int 			is_dead;
 	int				num_times_eaten;
-	struct s_data	data;
+	struct s_data	*data;
+	// pthread_mutex_t fork;
+	// pthread_mutex_t *right_fork;
+	pthread_mutex_t *left_fork; 
 } t_philo;
 
 typedef struct	s_data {
@@ -36,6 +41,7 @@ typedef struct	s_data {
 int		check_input(char **values);
 int		found_error(char *output);
 int		ft_atoi(const char *str);
+void	print_message(int state, int index);
 
 // brain
 int		init_data(t_data *data, char **av, int ac);

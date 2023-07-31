@@ -16,6 +16,6 @@ int	main(int ac, char **av)
 	}
 	else
 		return (found_error("fix input"));
-	threading
+	threading(data->philo);
 	return (0);
 }
