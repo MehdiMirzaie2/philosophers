@@ -30,27 +30,27 @@ void	*routine(void *phil)
 	{
 		if (take_forks(philo) == 0)
 			eat(philo);
-		else
-			think(philo);
+		// else
+		// 	think(philo);
 	}
 	return (NULL);
 }
 
-int	threading(t_philo *philo)
+int	threading(t_philo philos[])
 {
 	int	i;
-	t_philo philos[philo->data->num_philos];
+	// t_philo philos[philo->data->num_philos];
 
 	i = -1;
 	// if (philo->data->ntimes_to_eat != -1)
 	// 	pthread_create(philo->threads, NULL, &monitor, &philo);
 
-	while (++i < philo->data->num_philos)
+	while (++i < philos->data->num_philos)
 	{
 		philos[i].index = i;
 		philos[i].num_times_eaten = 0;
-		philos[i].last_time_ate = philo->data->start_time;
-		memcpy((void *)&philos[i], (void *)philo, sizeof(t_philo));
+		philos[i].last_time_ate = philos[i].data->start_time;
+		// memcpy((void *)&philos[i], (void *)philo, sizeof(t_philo));
 		pthread_create(&philos[i].threads, NULL, &routine, &philos[i]);
 	}
 	while (i--)

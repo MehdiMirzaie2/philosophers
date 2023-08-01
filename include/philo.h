@@ -40,6 +40,11 @@ typedef struct	s_data {
 	u_int64_t		start_time;
 } t_data;
 
+typedef struct s_structs {
+	struct s_philo *philos;
+	struct t_data *data;
+} t_structs;
+
 // number_of_philosophers time_to_die time_to_eat
 // time_to_sleep
 // [number_of_times_each_philosopher_must_eat]
