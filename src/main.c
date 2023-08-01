@@ -20,7 +20,6 @@ int	main(int ac, char **av)
 	}
 	else
 		return (found_error("fix input"));
-	// philo->data = data;
-	// threading(data->philo);
+	threading(structs);
 	return (0);
 }

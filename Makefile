@@ -11,7 +11,7 @@ SRCS := \
 	utils/print_message.c \
 	utils/time_and_sleep.c \
 	brain/init_data.c \
-	# brain/threading.c \
+	brain/threading.c \
 	brain/etsd.c \
 
 SRCS := $(SRCS:%=$(SRC_DIR)/%)

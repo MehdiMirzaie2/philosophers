@@ -14,14 +14,14 @@
 # define THINKING 2
 # define FORK 3
 # define DIED 4
-
+# define DROP 5
 typedef struct s_philo {
 	int				index;
 	pthread_t 		threads;
 	pthread_mutex_t mutexes;
 	int 			is_dead;
 	int				num_times_eaten;
-	// struct s_data	*data;
+	struct s_data	*data;
 	// pthread_mutex_t fork;
 	// pthread_mutex_t *right_fork;
 	pthread_mutex_t *left_fork;
@@ -42,7 +42,7 @@ typedef struct	s_data {
 
 typedef struct s_structs {
 	struct s_philo *philos;
-	struct t_data *data;
+	struct s_data *data;
 } t_structs;
 
 // number_of_philosophers time_to_die time_to_eat
@@ -54,13 +54,14 @@ typedef struct s_structs {
 int		check_input(char **values);
 int		found_error(char *output);
 int		ft_atoi(const char *str);
-void	print_message(int state, int index);
+// void	print_message(int state, int index);
+void	print_message(int state, int index, int first_second);
 u_int64_t	get_time(void);
 int	my_usleep(useconds_t sleep_time);
 
 // brain
 int	init_data(t_structs *structs, char **av, int ac);
-// int		threading(t_philo *philo);
+int	threading(t_structs *structs);
 void	eat(t_philo *philo);
 int take_forks(t_philo *philo);
 void think(t_philo *philo);

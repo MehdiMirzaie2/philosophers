@@ -18,36 +18,32 @@
 // 	data->philo = philos;
 // }
 
-// static void init_mutex(t_data *data) {
-//     int i;
-//     t_philo *philos;
-
-//     philos = malloc(sizeof(t_philo) * data->num_philos);
-
-//     for (i = 0; i < data->num_philos; i++) {
-//         pthread_mutex_init(&philos[i].mutexes, NULL);
-//     }
-
-//     for (i = 0; i < data->num_philos; i++) {
-//         philos[i].left_fork = &philos[(i + 1) % data->num_philos].mutexes;
-//     }
-
-//     data->philo = philos;
-// }
-
-void use_av(t_data *data, char **av, int ac)
+static void init_mutex(t_structs *structs)
 {
-	data->num_philos = ft_atoi(av[1]);
-	data->die_time = ft_atoi(av[2]);
-	data->eat_time = ft_atoi(av[3]);
-	data->sleep_time = ft_atoi(av[4]);
-	if (ac == 6)
-		data->ntimes_to_eat = ft_atoi(av[5]);
-	else
-	{
-		data->ntimes_to_eat = -1;
-	}
+    int		i;
+    // t_philo	*philos;
 
+    structs->philos = malloc(sizeof(t_philo) * structs->data->num_philos);
+    for (i = 0; i < structs->data->num_philos; i++) {
+		structs->philos[i].data = structs->data;
+        pthread_mutex_init(&structs->philos[i].mutexes, NULL);
+    }
+
+    for (i = 0; i < structs->data->num_philos; i++) {
+        structs->philos[i].left_fork = &structs->philos[(i + 1) % structs->data->num_philos].mutexes;
+    }
+}
+
+void use_av(t_structs *structs, char **av, int ac)
+{
+	structs->data = malloc(sizeof(t_data));
+	structs->data->num_philos = ft_atoi(av[1]);
+	structs->data->die_time = ft_atoi(av[2]);
+	structs->data->eat_time = ft_atoi(av[3]);
+	structs->data->sleep_time = ft_atoi(av[4]);
+	structs->data->ntimes_to_eat = -1;
+	if (ac == 6)
+		structs->data->ntimes_to_eat = ft_atoi(av[5]);
 }
 
 // void	init_rlforks(t_data *data)
@@ -60,11 +56,8 @@ int	init_data(t_structs *structs, char **av, int ac)
 	int i;
 
 	i = 0;
-	use_av(&structs->data, av, ac);
-	// init_mutex(data);
-	// data->start_time = get_time();
-	// // data->philo->is_dead = 0;
-	// while (i++ < data->num_philos)
-	// 	data->philo[i].data = data;
+	use_av(structs, av, ac);
+	init_mutex(structs);
+	structs->data->start_time = get_time();
 	return (1);
 }

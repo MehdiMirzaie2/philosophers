@@ -30,30 +30,27 @@ void	*routine(void *phil)
 	{
 		if (take_forks(philo) == 0)
 			eat(philo);
-		// else
-		// 	think(philo);
+		else
+			think(philo);
 	}
 	return (NULL);
 }
 
-int	threading(t_philo philos[])
+int	threading(t_structs *structs)
 {
 	int	i;
-	// t_philo philos[philo->data->num_philos];
 
 	i = -1;
 	// if (philo->data->ntimes_to_eat != -1)
 	// 	pthread_create(philo->threads, NULL, &monitor, &philo);
-
-	while (++i < philos->data->num_philos)
+	while (++i < structs->data->num_philos)
 	{
-		philos[i].index = i;
-		philos[i].num_times_eaten = 0;
-		philos[i].last_time_ate = philos[i].data->start_time;
-		// memcpy((void *)&philos[i], (void *)philo, sizeof(t_philo));
-		pthread_create(&philos[i].threads, NULL, &routine, &philos[i]);
+		structs->philos[i].index = i;
+		structs->philos[i].num_times_eaten = 0;
+		structs->philos[i].last_time_ate = structs->data->start_time;
+		pthread_create(&structs->philos[i].threads, NULL, &routine, &structs->philos[i]);
 	}
 	while (i--)
-		pthread_join(philos[i].threads, NULL);
+		pthread_join(structs->philos[i].threads, NULL);
 	return 1;
 }
