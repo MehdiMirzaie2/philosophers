@@ -1,36 +1,59 @@
- #include "../include/philo.h"
+#include "../include/philo.h"
 
-void	*trying(void *phil)
+// int	monitor(t_philo *philo)
+// {
+// 	int	i;
+// 	static unsigned int n_finished;
+
+// 	i = 0;
+// 	if (i == philo->data->ntimes_to_eat)
+// 	{
+// 		n_finished += 1;
+// 		if (n_finished == philo->data->num_philos)
+// 			return (1);
+// 	}
+// 	return (0);
+// }
+
+// int	supervisor(t_philo *philo)
+// {
+// 	if (philo->is_dead == 1)
+// 		return 1;
+// }
+
+void	*routine(void *phil)
 {
-	int		i;
-	t_philo	*philo;
+	t_philo *philo;
 
-	i = -1;
 	philo = (t_philo *)phil;
-	while (++i < philo->data->ntimes_to_eat)
+	while (1)
 	{
-		if (philo->index % 2 != 0)
-		{
-			print_message(SLEEPING, philo[i].index);
-			usleep(philo[i].data->sleep_time);
-		}
-		pthread_mutex_lock(&philo[i].left_fork);
-		pthread_mutex_lock(&philo[i].mutexes);
-		print_message(EATING, philo[i].index);
-		pthread_mutex_unlock(&philo[i].mutexes);
-		pthread_mutex_unlock(&philo[i].left_fork);	
+		if (take_forks(philo) == 0)
+			eat(philo);
+		else
+			think(philo);
 	}
-	return (phil);
+	return (NULL);
 }
 
 int	threading(t_philo *philo)
 {
-	int	i; 
+	int	i;
+	t_philo philos[philo->data->num_philos];
 
 	i = -1;
-	philo->threads = malloc(sizeof(pthread_t) * philo->data->num_philos);
+	// if (philo->data->ntimes_to_eat != -1)
+	// 	pthread_create(philo->threads, NULL, &monitor, &philo);
+
 	while (++i < philo->data->num_philos)
-		pthread_create(philo[i].threads, NULL, &trying, philo);
+	{
+		philos[i].index = i;
+		philos[i].num_times_eaten = 0;
+		philos[i].last_time_ate = philo->data->start_time;
+		memcpy((void *)&philos[i], (void *)philo, sizeof(t_philo));
+		pthread_create(&philos[i].threads, NULL, &routine, &philos[i]);
+	}
 	while (i--)
-		pthread_join(*philo[i].threads, NULL);
+		pthread_join(philos[i].threads, NULL);
+	return 1;
 }

@@ -9,8 +9,10 @@ SRCS := \
 	utils/check_input.c	\
 	utils/found_error.c	\
 	utils/print_message.c \
+	utils/time_and_sleep.c \
 	brain/init_data.c \
 	brain/threading.c \
+	brain/etsd.c \
 
 SRCS := $(SRCS:%=$(SRC_DIR)/%)
 OBJS := $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)

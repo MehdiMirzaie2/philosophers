@@ -24,6 +24,11 @@ void use_av(t_data *data, char **av, int ac)
 	data->sleep_time = ft_atoi(av[4]);
 	if (ac == 6)
 		data->ntimes_to_eat = ft_atoi(av[5]);
+	else
+	{
+		data->ntimes_to_eat = -1;
+	}
+
 }
 
 // void	init_rlforks(t_data *data)
@@ -35,6 +40,8 @@ int	init_data(t_data *data, char **av, int ac)
 {
 	use_av(data, av, ac);
 	init_mutex(data);
+	data->start_time = get_time();
+	data->philo->is_dead = 0;
 	// init_rlforks(data);
 	return (1);
 }
