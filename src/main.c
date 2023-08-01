@@ -2,23 +2,25 @@
 
 int	main(int ac, char **av)
 {
-	t_data	*data;
+	t_structs *structs;
+	// t_data	*data;
 	// t_philo	*philo;
 
-	data = NULL;
+	// data = NULL;
+	structs = NULL;
 	// if (ac == 5 || ac == 6)
 	if (ac == 5)
 	{
 		if (check_input(&av[1]) == -1)
 			return (found_error("input error"));
-		data = malloc(sizeof(t_data));
-		if (!data)
+		structs = malloc(sizeof(t_structs));
+		if (!structs)
 			return (0);
-		init_data(data, av, ac);
+		init_data(structs, av, ac);
 	}
 	else
 		return (found_error("fix input"));
 	// philo->data = data;
-	threading(data->philo);
+	// threading(data->philo);
 	return (0);
 }

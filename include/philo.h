@@ -21,7 +21,7 @@ typedef struct s_philo {
 	pthread_mutex_t mutexes;
 	int 			is_dead;
 	int				num_times_eaten;
-	struct s_data	*data;
+	// struct s_data	*data;
 	// pthread_mutex_t fork;
 	// pthread_mutex_t *right_fork;
 	pthread_mutex_t *left_fork;
@@ -31,7 +31,7 @@ typedef struct s_philo {
 } t_philo;
 
 typedef struct	s_data {
-	struct s_philo	*philo;
+	// struct s_philo	*philo;
 	int				num_philos;
 	u_int64_t		die_time;
 	u_int64_t		eat_time;
@@ -59,8 +59,8 @@ u_int64_t	get_time(void);
 int	my_usleep(useconds_t sleep_time);
 
 // brain
-int		init_data(t_data *data, char **av, int ac);
-int		threading(t_philo *philo);
+int	init_data(t_structs *structs, char **av, int ac);
+// int		threading(t_philo *philo);
 void	eat(t_philo *philo);
 int take_forks(t_philo *philo);
 void think(t_philo *philo);
