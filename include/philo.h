@@ -55,7 +55,7 @@ int		check_input(char **values);
 int		found_error(char *output);
 int		ft_atoi(const char *str);
 // void	print_message(int state, int index);
-void	print_message(int state, int index, int first_second);
+void	print_message(int state, int index, t_philo *philo);
 u_int64_t	get_time(void);
 int	my_usleep(useconds_t sleep_time);
 

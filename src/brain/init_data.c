@@ -25,6 +25,7 @@ static void init_mutex(t_structs *structs)
 
     structs->philos = malloc(sizeof(t_philo) * structs->data->num_philos);
     for (i = 0; i < structs->data->num_philos; i++) {
+		structs->philos[i].index = i + 1;
 		structs->philos[i].data = structs->data;
 		structs->philos[i].im_locked = 0;
         pthread_mutex_init(&structs->philos[i].my_mutex, NULL);
@@ -53,12 +54,13 @@ void	lock_even_mutex(t_structs *structs)
 	int i = 0;
 	while (i < structs->data->num_philos)
 	{
-		if (((structs->philos[i].index % 2) == 0) && (*structs->philos[i].right_islocked == 0))
+		if ((structs->philos[i].index % 2 == 0) && (*structs->philos[i].right_islocked == 0))
 		{
-			pthread_mutex_lock(&structs->philos[i].my_mutex);
-			pthread_mutex_lock(&(*structs->philos[i].right_fork));
+			// pthread_mutex_lock(&structs->philos[i].my_mutex);
+			// pthread_mutex_lock(&(*structs->philos[i].right_fork));
 			structs->philos[i].im_locked = 1;
 		}
+		i++;
 	}
 }
 

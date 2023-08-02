@@ -29,10 +29,9 @@ void	*routine(void *phil)
 	while (1)
 	{
 		take_forks(philo);
-		if (philo->im_locked)
+		if (philo->im_locked == 1)
 			eat(philo);
-		else
-			think(philo);
+		think(philo);
 	}
 	return (NULL);
 }
@@ -46,7 +45,7 @@ int	threading(t_structs *structs)
 	// 	pthread_create(philo->threads, NULL, &monitor, &philo);
 	while (++i < structs->data->num_philos)
 	{
-		structs->philos[i].index = i;
+		// structs->philos[i].index = i;
 		structs->philos[i].num_times_eaten = 0;
 		structs->philos[i].last_time_ate = structs->data->start_time;
 		pthread_create(&structs->philos[i].threads, NULL, &routine, &structs->philos[i]);
