@@ -1,19 +1,23 @@
 #include "../include/philo.h"
 
-// int	monitor(t_philo *philo)
-// {
-// 	int	i;
-// 	static unsigned int n_finished;
+void	*monitor(void *dat)
+{
+	t_data *data;
+	int total_times_to_eat;
 
-// 	i = 0;
-// 	if (i == philo->data->ntimes_to_eat)
-// 	{
-// 		n_finished += 1;
-// 		if (n_finished == philo->data->num_philos)
-// 			return (1);
-// 	}
-// 	return (0);
-// }
+	data = (t_data *)dat;
+	total_times_to_eat =  data->ntimes_to_eat * data->num_philos;
+	while (1)
+	{
+		if (data->num_times_eaten == total_times_to_eat)
+		{
+			printf("num times to eat reached\n");
+			exit(EXIT_SUCCESS);
+			return ((void *)1);
+		}
+		printf("\033[0;33m%d monitor n times to eat\n\033[0;31m", data->num_times_eaten);
+	}
+}
 
 // int	supervisor(t_philo *philo)
 // {
@@ -39,14 +43,17 @@ void	*routine(void *phil)
 int	threading(t_structs *structs)
 {
 	int	i;
+	pthread_t monitor_thread;
 
 	i = -1;
-	// if (philo->data->ntimes_to_eat != -1)
-	// 	pthread_create(philo->threads, NULL, &monitor, &philo);
+	if (structs->data->ntimes_to_eat != -1)
+	{
+		structs->data->num_times_eaten = 0;
+		pthread_create(&monitor_thread, NULL, &monitor, &structs->data);
+	}
 	while (++i < structs->data->num_philos)
 	{
 		// structs->philos[i].index = i;
-		structs->philos[i].num_times_eaten = 0;
 		structs->philos[i].last_time_ate = structs->data->start_time;
 		pthread_create(&structs->philos[i].threads, NULL, &routine, &structs->philos[i]);
 	}

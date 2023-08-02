@@ -16,10 +16,22 @@ void drop_forks(t_philo *philo)
 	pthread_mutex_unlock(&(*philo->right_fork));
 }
 
+void increase_neaten(t_data *data)
+{
+	pthread_mutex_t mut;
+
+	pthread_mutex_init(&mut, NULL);
+	pthread_mutex_lock(&mut);
+	data->num_times_eaten += 1;
+	printf("\033[0;31m%d is the new times eaten\n\033[0;37m", data->num_times_eaten);
+	pthread_mutex_unlock(&mut);
+}
+
 void	eat(t_philo *philo)
 {
 	print_message(EATING, philo->index, philo);
 	my_usleep(philo->data->sleep_time);
+	increase_neaten(philo->data);
 	drop_forks(philo);
 	print_message(SLEEPING, philo->index, philo);
 	my_usleep(philo->data->sleep_time);

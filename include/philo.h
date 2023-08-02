@@ -19,7 +19,6 @@ typedef struct s_philo {
 	int				index;
 	pthread_t 		threads;
 	int 			is_dead;
-	int				num_times_eaten;
 	struct s_data	*data;
 	// pthread_mutex_t fork;
 	// pthread_mutex_t *right_fork;
@@ -38,6 +37,7 @@ typedef struct	s_data {
 	u_int64_t		sleep_time;
 	int				ntimes_to_eat;
 	u_int64_t		start_time;
+	int				num_times_eaten;
 } t_data;
 
 typedef struct s_structs {
