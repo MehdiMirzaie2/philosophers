@@ -23,7 +23,6 @@ void increase_neaten(t_data *data)
 	pthread_mutex_init(&mut, NULL);
 	pthread_mutex_lock(&mut);
 	data->num_times_eaten += 1;
-	printf("\033[0;31m%d is the new times eaten\n\033[0;37m", data->num_times_eaten);
 	pthread_mutex_unlock(&mut);
 }
 

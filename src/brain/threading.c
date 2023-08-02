@@ -1,21 +1,20 @@
 #include "../include/philo.h"
 
-void	*monitor(void *dat)
+void	*monitor(void *data)
 {
-	t_data *data;
+	t_structs *structs;
 	int total_times_to_eat;
 
-	data = (t_data *)dat;
-	total_times_to_eat =  data->ntimes_to_eat * data->num_philos;
+	structs = (t_structs *)data;
+	total_times_to_eat =  structs->data->ntimes_to_eat * structs->data->num_philos;
 	while (1)
 	{
-		if (data->num_times_eaten == total_times_to_eat)
+		if (structs->data->num_times_eaten == total_times_to_eat)
 		{
-			printf("num times to eat reached\n");
+			printf("\033[0;33mnum times to eat reached\n\033[0;31m");
 			exit(EXIT_SUCCESS);
 			return ((void *)1);
 		}
-		printf("\033[0;33m%d monitor n times to eat\n\033[0;31m", data->num_times_eaten);
 	}
 }
 
@@ -49,7 +48,7 @@ int	threading(t_structs *structs)
 	if (structs->data->ntimes_to_eat != -1)
 	{
 		structs->data->num_times_eaten = 0;
-		pthread_create(&monitor_thread, NULL, &monitor, &structs->data);
+		pthread_create(&monitor_thread, NULL, &monitor, structs);
 	}
 	while (++i < structs->data->num_philos)
 	{
@@ -57,6 +56,7 @@ int	threading(t_structs *structs)
 		structs->philos[i].last_time_ate = structs->data->start_time;
 		pthread_create(&structs->philos[i].threads, NULL, &routine, &structs->philos[i]);
 	}
+	pthread_join(monitor_thread, NULL);
 	while (i--)
 		pthread_join(structs->philos[i].threads, NULL);
 	return 1;

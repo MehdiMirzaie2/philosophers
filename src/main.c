@@ -20,7 +20,7 @@ int	main(int ac, char **av)
 	}
 	else
 		return (found_error("fix input"));
-	structs->data->num_times_eaten = 0;
+	// structs->data->num_times_eaten = 200;
 	threading(structs);
 	return (0);
 }
