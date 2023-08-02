@@ -29,6 +29,7 @@ void increase_neaten(t_data *data)
 void	eat(t_philo *philo)
 {
 	print_message(EATING, philo->index, philo);
+	philo->last_time_ate = get_time() - philo->last_time_ate;
 	my_usleep(philo->data->sleep_time);
 	increase_neaten(philo->data);
 	drop_forks(philo);
