@@ -18,15 +18,15 @@
 typedef struct s_philo {
 	int				index;
 	pthread_t 		threads;
-	pthread_mutex_t mutexes;
 	int 			is_dead;
 	int				num_times_eaten;
 	struct s_data	*data;
 	// pthread_mutex_t fork;
 	// pthread_mutex_t *right_fork;
-	pthread_mutex_t *left_fork;
+	pthread_mutex_t my_mutex;
+	pthread_mutex_t *right_fork;
 	int				im_locked;
-	int				*left_islocked;
+	int				*right_islocked;
 	u_int64_t		last_time_ate;
 } t_philo;
 
@@ -63,7 +63,7 @@ int	my_usleep(useconds_t sleep_time);
 int	init_data(t_structs *structs, char **av, int ac);
 int	threading(t_structs *structs);
 void	eat(t_philo *philo);
-int take_forks(t_philo *philo);
+void take_forks(t_philo *philo);
 void think(t_philo *philo);
 
 #endif

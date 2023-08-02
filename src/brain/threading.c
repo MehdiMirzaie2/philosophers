@@ -28,7 +28,8 @@ void	*routine(void *phil)
 	philo = (t_philo *)phil;
 	while (1)
 	{
-		if (take_forks(philo) == 0)
+		take_forks(philo);
+		if (philo->im_locked)
 			eat(philo);
 		else
 			think(philo);
