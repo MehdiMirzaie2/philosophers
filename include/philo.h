@@ -15,6 +15,18 @@
 # define FORK 3
 # define DIED 4
 # define DROP 5
+
+// typedef enum e_action t_action;
+
+// enum e_action {
+// 	E_EATING = 0,
+// 	E_SLEEPING = 1,
+// 	E_THINKING = 2,
+// 	E_FORK = 3,
+// 	E_DIED = 4,
+// 	E_DROP = 5
+// };
+
 typedef struct s_philo {
 	struct s_data	*data;
 	pthread_t 		threads;
@@ -22,11 +34,13 @@ typedef struct s_philo {
 	pthread_mutex_t *right_fork;
 	int 			is_dead;
 	int				index;
-	int				im_locked;
+	int				my_fork_is_locked;
+	int				did_i_take_my_fork;
+	// int				*left_islocked;
 	int				*right_islocked;
 	int				n_times_i_ate;
-	int				*n_times_left_ate;
-	int				*n_times_right_ate;
+	// int				*n_times_left_ate;
+	// int				*n_times_right_ate;
 	u_int64_t		last_time_ate;
 } t_philo;
 
