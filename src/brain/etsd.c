@@ -16,13 +16,14 @@ void drop_forks(t_philo *philo)
 	pthread_mutex_unlock(&(*philo->right_fork));
 }
 
-void increase_neaten(t_data *data)
+void increase_neaten(t_philo *philo)
 {
 	pthread_mutex_t mut;
 
 	pthread_mutex_init(&mut, NULL);
 	pthread_mutex_lock(&mut);
-	data->num_times_eaten += 1;
+	philo->data->num_times_eaten += 1;
+	philo->n_times_i_ate += 1;
 	pthread_mutex_unlock(&mut);
 }
 
@@ -31,7 +32,7 @@ void	eat(t_philo *philo)
 	print_message(EATING, philo->index, philo);
 	philo->last_time_ate = get_time() - philo->last_time_ate;
 	my_usleep(philo->data->sleep_time);
-	increase_neaten(philo->data);
+	increase_neaten(philo);
 	drop_forks(philo);
 	print_message(SLEEPING, philo->index, philo);
 	my_usleep(philo->data->sleep_time);

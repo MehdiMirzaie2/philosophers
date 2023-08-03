@@ -16,27 +16,27 @@
 # define DIED 4
 # define DROP 5
 typedef struct s_philo {
-	int				index;
-	pthread_t 		threads;
-	int 			is_dead;
 	struct s_data	*data;
-	// pthread_mutex_t fork;
-	// pthread_mutex_t *right_fork;
+	pthread_t 		threads;
 	pthread_mutex_t my_mutex;
 	pthread_mutex_t *right_fork;
+	int 			is_dead;
+	int				index;
 	int				im_locked;
 	int				*right_islocked;
+	int				n_times_i_ate;
+	int				*n_times_left_ate;
+	int				*n_times_right_ate;
 	u_int64_t		last_time_ate;
 } t_philo;
 
 typedef struct	s_data {
-	// struct s_philo	*philo;
-	int				num_philos;
 	u_int64_t		die_time;
 	u_int64_t		eat_time;
 	u_int64_t		sleep_time;
-	int				ntimes_to_eat;
 	u_int64_t		start_time;
+	int				ntimes_to_eat;
+	int				num_philos;
 	int				num_times_eaten;
 } t_data;
 
@@ -54,7 +54,6 @@ typedef struct s_structs {
 int		check_input(char **values);
 int		found_error(char *output);
 int		ft_atoi(const char *str);
-// void	print_message(int state, int index);
 void	print_message(int state, int index, t_philo *philo);
 u_int64_t	get_time(void);
 int	my_usleep(useconds_t sleep_time);

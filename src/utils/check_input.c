@@ -32,6 +32,8 @@ int	check_input(char **values)
 {
 	while (*values)
 	{
+		if (values[0][0] == '1')
+			return (-2);
 		if (ft_strlen(*values) == 1
 			&& (*values[0] == '-' || *values[0] == '+'))
 			return (-1);

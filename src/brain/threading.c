@@ -60,7 +60,6 @@ int	threading(t_structs *structs)
 	}
 	while (++i < structs->data->num_philos)
 	{
-		// structs->philos[i].index = i;
 		structs->philos[i].last_time_ate = get_time() - structs->data->start_time;
 		pthread_create(&structs->philos[i].threads, NULL, &routine, &structs->philos[i]);
 	}
