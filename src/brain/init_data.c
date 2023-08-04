@@ -40,11 +40,13 @@ void	lock_even_mutex(t_structs *structs)
 			structs->philos[i].first = 1;
 			structs->philos[i].my_fork_is_locked = 1;
 			structs->philos[i].did_i_take_my_fork = 1;
+			*structs->philos[i].right_islocked = 1;
+			structs->philos[i].did_i_take_right_fork = 1;
 		}
 		else
 		{
-			structs->philos[i].did_i_take_my_fork = 0;
-			structs->philos[i].first = 0;
+			// structs->philos[i].did_i_take_my_fork = 0;
+			structs->philos[i].first = 2;
 		}
 		i++;
 	}
