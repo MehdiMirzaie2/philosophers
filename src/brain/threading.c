@@ -33,37 +33,30 @@ void	*routine(void *phil)
 	t_philo *const philo = (t_philo *)phil;
 	// static pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
 
+	// pthread_mutex_lock(&lock);
+	if (philo->first == 1)
+	{
+		pthread_mutex_lock(&philo->my_mutex);
+		pthread_mutex_lock(&(*philo->right_fork));
+		print_message(FORK, philo->index, philo);
+		print_message(FORK, philo->index, philo);
+		eat(philo);
+	}
+	// pthread_mutex_unlock(&lock);
+	// else if (philo->first == 2 && *philo->right_islocked == 0)
+	// {
+	// 	*philo->right_islocked = 1;
+	// 	philo->did_i_take_right_fork = 1;
+	// 	pthread_mutex_lock(&(*philo->right_fork));
+	// 	print_message(FORK, philo->index, philo);
+	// }
 	while (1)
 	{
-		// pthread_mutex_lock(&lock);
 		supervisor(philo);
-		if (philo->first == 1)
-		{
-			pthread_mutex_lock(&philo->my_mutex);
-			pthread_mutex_lock(&(*philo->right_fork));
-			print_message(FORK, philo->index, philo);
-			print_message(FORK, philo->index, philo);
+		take_forks(philo);
+		if (philo->did_i_take_my_fork == 1 && philo->did_i_take_right_fork == 1)
 			eat(philo);
-		}
-		else if (philo->first == 2 && *philo->right_islocked == 0)
-		{
-			*philo->right_islocked = 1;
-			philo->did_i_take_right_fork = 1;
-			pthread_mutex_lock(&(*philo->right_fork));
-			print_message(FORK, philo->index, philo);
-		}
-		else
-		{
-			take_forks(philo);
-			if (philo->did_i_take_my_fork == 1 && philo->did_i_take_right_fork == 1)
-			{
-				if (philo->index == 1)
-					printf("my fork = %d,\t right fork = %d\n", philo->did_i_take_my_fork, philo->did_i_take_right_fork);
-				eat(philo);
-			}
-		}
 		think(philo);
-		// pthread_mutex_lock(&lock);
 	}
 	return (NULL);
 }
