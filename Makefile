@@ -18,8 +18,8 @@ SRCS := $(SRCS:%=$(SRC_DIR)/%)
 OBJS := $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 CC := CC
-# -Wall -Wextra -Werror
-CFLAGS := -pthread -g
+
+CFLAGS := -pthread -g -Wall -Wextra -Werror
 CPPFLAGS := -I include
 
 RM := rm -f

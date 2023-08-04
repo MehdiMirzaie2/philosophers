@@ -19,6 +19,7 @@ int	main(int ac, char **av)
 	}
 	else
 		return (found_error("fix input: should be between 5 and 6"));
+	// printf("got to 22\n");
 	threading(structs);
 	return (0);
 }

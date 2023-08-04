@@ -21,7 +21,7 @@ static void init_mutex_and_set_others(t_structs *structs)
     for (i = 0; i < structs->data->num_philos; i++) {
         structs->philos[i].right_fork = &structs->philos[(i + 1) % structs->data->num_philos].my_mutex;
 		// structs->philos[i].n_times_right_ate = &structs->philos[(i + 1) % structs->data->num_philos].n_times_i_ate;
-		structs->philos[i].right_islocked = &structs->philos[(i + 1) % structs->data->num_philos].im_locked;
+		structs->philos[i].right_islocked = &structs->philos[(i + 1) % structs->data->num_philos].my_fork_is_locked;
     }
 }
 

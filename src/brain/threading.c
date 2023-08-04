@@ -30,14 +30,13 @@ int	supervisor(t_philo *philo)
 
 void	*routine(void *phil)
 {
-	t_philo *const	philo = (t_philo *)phil;
+	t_philo *const philo = (t_philo *)phil;
 
 	while (1)
 	{
 		supervisor(philo);
-		if (philo->im_locked == 1)
-			take_forks(philo);
-		if (philo->im_locked == 2)
+		take_forks(philo);
+		if (philo->n_forks_taken == 2)
 			eat(philo);
 		think(philo);
 	}
@@ -55,6 +54,7 @@ int	threading(t_structs *structs)
 		structs->data->num_times_eaten = 0;
 		pthread_create(&monitor_thread, NULL, &monitor, structs);
 	}
+	printf("got to 58\n");
 	while (++i < structs->data->num_philos)
 	{
 		structs->philos[i].last_time_ate = get_time();

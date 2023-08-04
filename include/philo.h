@@ -36,6 +36,7 @@ typedef struct s_philo {
 	int				index;
 	int				my_fork_is_locked;
 	int				did_i_take_my_fork;
+	int				n_forks_taken;
 	// int				*left_islocked;
 	int				*right_islocked;
 	int				n_times_i_ate;
