@@ -36,7 +36,7 @@ void	*routine(void *phil)
 	{
 		supervisor(philo);
 		take_forks(philo);
-		if (philo->n_forks_taken == 2)
+		if (philo->did_i_take_my_fork && philo->did_i_take_right_fork)
 			eat(philo);
 		think(philo);
 	}

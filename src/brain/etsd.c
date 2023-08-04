@@ -1,73 +1,32 @@
 #include "../../include/philo.h"
 
-// void take_forks(t_philo *philo)
-// {
-// 	static pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
-
-// 	pthread_mutex_lock(&lock);
-// 	if (philo->index % 2 == 0 && philo->my_fork_is_locked)
-// 	{
-// 		pthread_mutex_lock(&philo->my_mutex);
-// 		pthread_mutex_lock(&(*philo->right_fork));
-// 		philo->my_fork_is_locked = 2;
-// 	}
-// 	else if (philo->index % 2 == 0 && !philo->my_fork_is_locked)
-// 		if (!philo->right_islocked)
-// 		{
-// 			pthread_mutex_lock(&(*philo->right_fork));
-// 			philo->my_fork_is_locked = 1;
-// 		}
-// 	if (philo->index % 2 != 0 && !philo->my_fork_is_locked)
-// 	{
-// 		if (*philo->right_islocked == 1)
-// 			return ;
-// 		print_message(FORK, philo->index, philo);
-// 		philo->my_fork_is_locked = 1;
-// 		pthread_mutex_lock(&(*philo->right_fork));
-// 	}
-// 	else if	(philo->index % 2 != 0 && philo->my_fork_is_locked)
-// 	{
-// 		print_message(FORK, philo->index, philo);
-// 		philo->my_fork_is_locked = 2;
-// 		pthread_mutex_lock(&philo->my_mutex);
-// 	}
-// 	pthread_mutex_unlock(&lock);
-// }
 
 void take_forks(t_philo *philo)
 {
 	static pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
 
 	pthread_mutex_lock(&lock);
-	if (philo->index % 2 == 0 && !philo->my_fork_is_locked)
+	if (philo->first == 1)
+		pthread_mutex_lock(&philo->my_mutex);
+	if (philo->did_i_take_my_fork && (*philo->right_islocked) == 0)
+	{
+		*philo->right_islocked = 1;
+		philo->did_i_take_right_fork = 1;
+		// pthread_mutex_lock(&philo->my_mutex);
+		pthread_mutex_lock(&(*philo->right_fork));
+	}
+	if (*philo->right_islocked && philo->did_i_take_right_fork
+		&& !philo->my_fork_is_locked)
 	{
 		philo->my_fork_is_locked = 1;
 		philo->did_i_take_my_fork = 1;
-		print_message(FORK, philo->index, philo);
 		pthread_mutex_lock(&philo->my_mutex);
-		philo->n_forks_taken = 1;
 	}
-	if (philo->index % 2 == 0 && philo->did_i_take_my_fork
-		&& !(*philo->right_islocked))
+	if (!philo->did_i_take_right_fork && (*philo->right_islocked) == 0)
 	{
 		*philo->right_islocked = 1;
-		print_message(FORK, philo->index, philo);
+		philo->did_i_take_right_fork = 1;
 		pthread_mutex_lock(&(*philo->right_fork));
-		philo->n_forks_taken = 2;
-	}
-	if (philo->index % 2 != 0 && !(*philo->right_islocked))
-	{
-		*philo->right_islocked = 1;
-		print_message(FORK, philo->index, philo);
-		pthread_mutex_lock(&(*philo->right_fork));
-		philo->n_forks_taken = 1;
-	}
-	if (philo->index % 2 != 0 && *philo->right_islocked)
-	{
-		philo->my_fork_is_locked = 1;
-		print_message(FORK, philo->index, philo);
-		pthread_mutex_lock(&philo->my_mutex);
-		philo->n_forks_taken = 2;
 	}
 	pthread_mutex_unlock(&lock);
 }
@@ -76,7 +35,9 @@ void drop_forks(t_philo *philo)
 {
 	philo->my_fork_is_locked = 0;
 	philo->did_i_take_my_fork = 0;
+	philo->did_i_take_right_fork = 0;
 	*philo->right_islocked = 0;
+	philo->first = 0;
 	pthread_mutex_unlock(&philo->my_mutex);
 	pthread_mutex_unlock(&(*philo->right_fork));
 }
