@@ -1,22 +1,62 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_data.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mehdimirzaie <mehdimirzaie@student.42.f    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/05 21:32:03 by mehdimirzai       #+#    #+#             */
+/*   Updated: 2023/08/05 21:35:52 by mehdimirzai      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/philo.h"
 
-static void init_mutex_and_set_others(t_structs *structs)
-{
-    int		i;
+// static void	init_mutex_and_set_others(t_structs *structs)
+// {
+// 	int	i;
 
-    structs->philos = malloc(sizeof(t_philo) * structs->data->num_philos);
-    for (i = 0; i < structs->data->num_philos; i++) {
+// 	structs->philos = malloc(sizeof(t_philo) * structs->data->num_philos);
+// 	for (i = 0; i < structs->data->num_philos; i++)
+// 	{
+// 		structs->philos[i].index = i + 1;
+// 		structs->philos[i].data = structs->data;
+// 		pthread_mutex_init(&structs->philos[i].my_mutex, NULL);
+// 	}
+// 	for (i = 0; i < structs->data->num_philos; i++)
+// 	{
+// 		structs->philos[i].right_fork = &structs->philos[(i + 1)
+// 			% structs->data->num_philos].my_mutex;
+// 		structs->philos[i].right_islocked = &structs->philos[(i + 1)
+// 			% structs->data->num_philos].my_fork_is_locked;
+// 	}
+// }
+
+static void	init_mutex_and_set_others(t_structs *structs)
+{
+	int	i;
+
+	structs->philos = malloc(sizeof(t_philo) * structs->data->num_philos);
+	i = 0;
+	while (i < structs->data->num_philos)
+	{
 		structs->philos[i].index = i + 1;
 		structs->philos[i].data = structs->data;
-        pthread_mutex_init(&structs->philos[i].my_mutex, NULL);
-    }
-    for (i = 0; i < structs->data->num_philos; i++) {
-        structs->philos[i].right_fork = &structs->philos[(i + 1) % structs->data->num_philos].my_mutex;
-		structs->philos[i].right_islocked = &structs->philos[(i + 1) % structs->data->num_philos].my_fork_is_locked;
-    }
+		pthread_mutex_init(&structs->philos[i].my_mutex, NULL);
+		i++;
+	}
+	i = 0;
+	while (i < structs->data->num_philos)
+	{
+		structs->philos[i].right_fork = &structs->philos[(i + 1)
+			% structs->data->num_philos].my_mutex;
+		structs->philos[i].right_islocked = &structs->philos[(i + 1)
+			% structs->data->num_philos].my_fork_is_locked;
+		i++;
+	}
 }
 
-void use_av(t_structs *structs, char **av, int ac)
+void	use_av(t_structs *structs, char **av, int ac)
 {
 	structs->data = malloc(sizeof(t_data));
 	structs->data->num_philos = ft_atoi(av[1]);
@@ -35,7 +75,8 @@ void	lock_even_mutex(t_structs *structs)
 	i = 0;
 	while (i < structs->data->num_philos)
 	{
-		if ((structs->philos[i].index % 2 == 0) && (*structs->philos[i].right_islocked == 0))
+		if ((structs->philos[i].index % 2 == 0)
+			&& (*structs->philos[i].right_islocked == 0))
 		{
 			structs->philos[i].first = 1;
 			structs->philos[i].my_fork_is_locked = 1;
@@ -44,10 +85,7 @@ void	lock_even_mutex(t_structs *structs)
 			structs->philos[i].did_i_take_right_fork = 1;
 		}
 		else
-		{
-			// structs->philos[i].did_i_take_my_fork = 0;
 			structs->philos[i].first = 2;
-		}
 		i++;
 	}
 }

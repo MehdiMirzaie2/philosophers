@@ -1,12 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   threading.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mehdimirzaie <mehdimirzaie@student.42.f    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/05 21:41:08 by mehdimirzai       #+#    #+#             */
+/*   Updated: 2023/08/05 21:42:52 by mehdimirzai      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/philo.h"
 
 void	*monitor(void *data)
 {
-	t_structs *structs;
-	int total_times_to_eat;
+	t_structs	*structs;
+	int			total_times_to_eat;
 
 	structs = (t_structs *)data;
-	total_times_to_eat =  structs->data->ntimes_to_eat * structs->data->num_philos;
+	total_times_to_eat = structs->data->ntimes_to_eat
+		* structs->data->num_philos;
 	while (1)
 	{
 		if (structs->data->num_times_eaten == total_times_to_eat)
@@ -30,10 +43,8 @@ int	supervisor(t_philo *philo)
 
 void	*routine(void *phil)
 {
-	t_philo *const philo = (t_philo *)phil;
-	// static pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
+	t_philo *const	philo = (t_philo *)phil;
 
-	// pthread_mutex_lock(&lock);
 	if (philo->first == 1)
 	{
 		pthread_mutex_lock(&philo->my_mutex);
@@ -42,14 +53,6 @@ void	*routine(void *phil)
 		print_message(FORK, philo->index, philo);
 		eat(philo);
 	}
-	// pthread_mutex_unlock(&lock);
-	// else if (philo->first == 2 && *philo->right_islocked == 0)
-	// {
-	// 	*philo->right_islocked = 1;
-	// 	philo->did_i_take_right_fork = 1;
-	// 	pthread_mutex_lock(&(*philo->right_fork));
-	// 	print_message(FORK, philo->index, philo);
-	// }
 	while (1)
 	{
 		supervisor(philo);
@@ -63,8 +66,8 @@ void	*routine(void *phil)
 
 int	threading(t_structs *structs)
 {
-	int	i;
-	pthread_t monitor_thread;
+	int			i;
+	pthread_t	monitor_thread;
 
 	i = -1;
 	if (structs->data->ntimes_to_eat != -1)
@@ -72,14 +75,14 @@ int	threading(t_structs *structs)
 		structs->data->num_times_eaten = 0;
 		pthread_create(&monitor_thread, NULL, &monitor, structs);
 	}
-	printf("got to 58\n");
 	while (++i < structs->data->num_philos)
 	{
 		structs->philos[i].last_time_ate = get_time();
-		pthread_create(&structs->philos[i].threads, NULL, &routine, &structs->philos[i]);
+		pthread_create(&structs->philos[i].threads,
+			NULL, &routine, &structs->philos[i]);
 	}
 	pthread_join(monitor_thread, NULL);
 	while (i--)
 		pthread_join(structs->philos[i].threads, NULL);
-	return 1;
+	return (1);
 }
