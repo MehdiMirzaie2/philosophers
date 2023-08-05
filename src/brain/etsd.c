@@ -6,7 +6,7 @@
 /*   By: mehdimirzaie <mehdimirzaie@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 21:29:44 by mehdimirzai       #+#    #+#             */
-/*   Updated: 2023/08/05 21:31:56 by mehdimirzai      ###   ########.fr       */
+/*   Updated: 2023/08/05 22:59:22 by mehdimirzai      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,11 @@ void	increase_neaten(t_philo *philo)
 void	eat(t_philo *philo)
 {
 	print_message(EATING, philo->index, philo);
-	philo->last_time_ate = get_time();
-	my_usleep(philo->data->sleep_time);
-	increase_neaten(philo);
+	if (!philo->first)
+		philo->last_time_ate = get_time();
+	my_usleep(philo->data->eat_time);
 	drop_forks(philo);
+	increase_neaten(philo);
 	print_message(SLEEPING, philo->index, philo);
 	my_usleep(philo->data->sleep_time);
 }

@@ -6,7 +6,7 @@
 /*   By: mehdimirzaie <mehdimirzaie@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 21:41:08 by mehdimirzai       #+#    #+#             */
-/*   Updated: 2023/08/05 21:42:52 by mehdimirzai      ###   ########.fr       */
+/*   Updated: 2023/08/05 22:59:35 by mehdimirzai      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,19 @@ void	*monitor(void *data)
 	{
 		if (structs->data->num_times_eaten == total_times_to_eat)
 		{
-			printf("\033[0;33mnum times to eat reached\n\033[0;31m");
-			exit(EXIT_SUCCESS);
-			return ((void *)1);
+			// print_message(DEAD, structs->philos->index, philos);
+			// printf("\033[0;33mnum times to eat reached\n\033[0;31m");
+			// exit(EXIT_SUCCESS);
+			return (NULL);
 		}
 	}
 }
 
 int	supervisor(t_philo *philo)
 {
-	if ((get_time() - philo->last_time_ate) > philo->data->die_time)
+	u_int64_t time = get_time() - philo->last_time_ate;
+	// printf("\033[0;34mtime since last ate: %lld\t %d\n\033[0;37m", time, philo->index);
+	if (time >= philo->data->die_time)
 	{
 		printf("%d reached death time\n", philo->index);
 		exit(1);
