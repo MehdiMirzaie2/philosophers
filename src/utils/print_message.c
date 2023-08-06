@@ -6,7 +6,7 @@
 /*   By: mehdimirzaie <mehdimirzaie@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 21:26:25 by mehdimirzai       #+#    #+#             */
-/*   Updated: 2023/08/06 21:31:23 by mehdimirzai      ###   ########.fr       */
+/*   Updated: 2023/08/06 22:14:47 by mehdimirzai      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ void	print_message(int state, int index, t_philo *philo)
 	static pthread_mutex_t	lock = PTHREAD_MUTEX_INITIALIZER;
 
 	pthread_mutex_lock(&lock);
-	current_time = get_time();
-	current_time = current_time - philo->data->start_time;
+	current_time = get_time() - philo->data->start_time;
 	if (state == EATING)
 		printf("%lld\t%d \033[0;32mis eating\n\033[0;37m", current_time, index);
 	else if (state == SLEEPING)

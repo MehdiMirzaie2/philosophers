@@ -6,7 +6,7 @@
 /*   By: mehdimirzaie <mehdimirzaie@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 17:46:39 by mehdimirzai       #+#    #+#             */
-/*   Updated: 2023/08/06 21:22:52 by mehdimirzai      ###   ########.fr       */
+/*   Updated: 2023/08/06 22:46:29 by mehdimirzai      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	free_threads(t_structs *structs)
 		pthread_mutex_destroy(&structs->philos->my_mutex);
 		i++;
 	}
-	free(structs->data);
 	free(structs->philos);
+	free(structs->data);
 	free(structs);
 }

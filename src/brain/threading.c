@@ -6,7 +6,7 @@
 /*   By: mehdimirzaie <mehdimirzaie@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 21:41:08 by mehdimirzai       #+#    #+#             */
-/*   Updated: 2023/08/06 21:45:18 by mehdimirzai      ###   ########.fr       */
+/*   Updated: 2023/08/06 22:19:59 by mehdimirzai      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,8 @@ void	*monitor(void *data)
 	total_times_to_eat = structs->data->ntimes_to_eat
 		* structs->data->num_philos;
 	while (1)
-	{
 		if (structs->data->num_times_eaten == total_times_to_eat)
 			return ((void *)1);
-	}
 }
 
 void	*supervisor(void *stru)
@@ -43,7 +41,6 @@ void	*supervisor(void *stru)
 			if (time > structs->data->die_time)
 			{
 				print_message(DIED, i + 1, structs->philos);
-				structs->data->someone_died = (void *)1;
 				return ((void *)1);
 			}
 			i++;
@@ -89,13 +86,14 @@ int	threading(t_structs *structs)
 		pthread_create(&structs->philos[i].threads,
 			NULL, &routine, &structs->philos[i]);
 	pthread_create(&superviour_thread, NULL, &supervisor, structs);
+	// pthread_join(monitor_thread, &structs->data->someone_died);
 	pthread_join(monitor_thread, &structs->data->reached_n_eat);
 	if ((long int)structs->data->reached_n_eat == 1)
-		return (3);
+		return (1);
 	pthread_join(superviour_thread, &structs->data->someone_died);
 	if ((long int)structs->data->someone_died == 1)
 		return (2);
 	while (i--)
-		pthread_join(structs->philos[i].threads, &structs->data->someone_died);
-	return (1);
+		pthread_join(structs->philos[i].threads, NULL);
+	return (3);
 }
