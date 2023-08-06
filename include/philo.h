@@ -6,7 +6,7 @@
 /*   By: mehdimirzaie <mehdimirzaie@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 21:37:01 by mehdimirzai       #+#    #+#             */
-/*   Updated: 2023/08/06 17:50:20 by mehdimirzai      ###   ########.fr       */
+/*   Updated: 2023/08/06 21:42:15 by mehdimirzai      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ typedef struct s_data {
 	int				ntimes_to_eat;
 	int				num_philos;
 	int				num_times_eaten;
-	int				someone_died;
+	void			*someone_died;
+	void			*reached_n_eat;
 }	t_data;
 
 typedef struct s_structs {
