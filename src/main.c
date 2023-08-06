@@ -6,7 +6,7 @@
 /*   By: mehdimirzaie <mehdimirzaie@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 21:24:21 by mehdimirzai       #+#    #+#             */
-/*   Updated: 2023/08/05 21:25:20 by mehdimirzai      ###   ########.fr       */
+/*   Updated: 2023/08/06 17:45:51 by mehdimirzai      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,6 @@ int	main(int ac, char **av)
 	else
 		return (found_error("fix input: should be between 5 and 6"));
 	threading(structs);
+	free_threads(structs);
 	return (0);
 }

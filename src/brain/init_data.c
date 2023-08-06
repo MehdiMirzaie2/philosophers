@@ -6,7 +6,7 @@
 /*   By: mehdimirzaie <mehdimirzaie@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 21:32:03 by mehdimirzai       #+#    #+#             */
-/*   Updated: 2023/08/05 23:07:09 by mehdimirzai      ###   ########.fr       */
+/*   Updated: 2023/08/06 18:41:21 by mehdimirzai      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static void	init_mutex_and_set_others(t_structs *structs)
 	while (i < structs->data->num_philos)
 	{
 		structs->philos[i].index = i + 1;
+		structs->philos[i].last_time_ate = get_time();
 		structs->philos[i].data = structs->data;
 		pthread_mutex_init(&structs->philos[i].my_mutex, NULL);
 		i++;

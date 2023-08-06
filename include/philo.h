@@ -6,7 +6,7 @@
 /*   By: mehdimirzaie <mehdimirzaie@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 21:37:01 by mehdimirzai       #+#    #+#             */
-/*   Updated: 2023/08/05 21:40:35 by mehdimirzai      ###   ########.fr       */
+/*   Updated: 2023/08/06 17:50:20 by mehdimirzai      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct s_data {
 	int				ntimes_to_eat;
 	int				num_philos;
 	int				num_times_eaten;
+	int				someone_died;
 }	t_data;
 
 typedef struct s_structs {
@@ -67,6 +68,7 @@ int			ft_atoi(const char *str);
 void		print_message(int state, int index, t_philo *philo);
 u_int64_t	get_time(void);
 int			my_usleep(useconds_t sleep_time);
+void		free_threads(t_structs *structs);
 
 // brain
 int			init_data(t_structs *structs, char **av, int ac);

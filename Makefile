@@ -10,6 +10,7 @@ SRCS := \
 	utils/found_error.c	\
 	utils/print_message.c \
 	utils/time_and_sleep.c \
+	utils/free_threads.c \
 	brain/init_data.c \
 	brain/threading.c \
 	brain/etsd.c \
