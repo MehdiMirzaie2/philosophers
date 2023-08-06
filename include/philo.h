@@ -6,7 +6,7 @@
 /*   By: mehdimirzaie <mehdimirzaie@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 21:37:01 by mehdimirzai       #+#    #+#             */
-/*   Updated: 2023/08/06 21:42:15 by mehdimirzai      ###   ########.fr       */
+/*   Updated: 2023/08/06 23:38:18 by mehdimirzai      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define THINKING 2
 # define FORK 3
 # define DIED 4
-# define DROP 5
+// # define DROP 5
 
 typedef struct s_philo {
 	struct s_data	*data;

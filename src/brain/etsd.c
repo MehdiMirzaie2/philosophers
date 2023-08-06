@@ -6,7 +6,7 @@
 /*   By: mehdimirzaie <mehdimirzaie@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 21:29:44 by mehdimirzai       #+#    #+#             */
-/*   Updated: 2023/08/05 22:59:22 by mehdimirzai      ###   ########.fr       */
+/*   Updated: 2023/08/06 23:33:32 by mehdimirzai      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,16 +76,11 @@ void	eat(t_philo *philo)
 
 void	think(t_philo *philo)
 {
-	u_int64_t	iterator;
-
-	iterator = 0;
 	print_message(THINKING, philo->index, philo);
-	while (iterator < philo->data->eat_time)
+	while (1)
 	{
-		my_usleep(philo->data->eat_time / 16);
 		take_forks(philo);
 		if (philo->did_i_take_my_fork == 1 && philo->did_i_take_right_fork == 1)
 			return ;
-		iterator += (philo->data->eat_time / 16);
 	}
 }
