@@ -6,7 +6,7 @@
 /*   By: mehdimirzaie <mehdimirzaie@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 21:41:08 by mehdimirzai       #+#    #+#             */
-/*   Updated: 2023/08/07 21:59:32 by mehdimirzai      ###   ########.fr       */
+/*   Updated: 2023/08/07 22:44:42 by mehdimirzai      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@ void	*monitor(void *data)
 		if (structs->data->num_times_eaten >= total_times_to_eat)
 		{
 			structs->data->reached_n_eat = 1;
-			// return ((void *)1);
-			return NULL;
+			return (NULL);
 		}
 		else if (structs->data->someone_died == 1)
 			return (NULL);
@@ -50,7 +49,6 @@ void	*supervisor(void *stru)
 			{
 				print_message(DIED, i + 1, structs->philos);
 				structs->data->someone_died = 1;
-				// return ((void *)1);
 				return (NULL);
 			}
 			else if (structs->data->reached_n_eat)
@@ -74,7 +72,6 @@ void	*routine(void *phil)
 	}
 	while (1)
 	{
-		// usleep(2000);
 		if (philo->data->someone_died || philo->data->reached_n_eat)
 			return (NULL);
 		take_forks(philo);

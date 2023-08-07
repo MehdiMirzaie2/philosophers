@@ -6,7 +6,7 @@
 /*   By: mehdimirzaie <mehdimirzaie@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 21:37:01 by mehdimirzai       #+#    #+#             */
-/*   Updated: 2023/08/07 21:07:08 by mehdimirzai      ###   ########.fr       */
+/*   Updated: 2023/08/07 22:49:39 by mehdimirzai      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,20 @@
 // remove latter
 # include <string.h>
 
+// states
 # define EATING 0
 # define SLEEPING 1
 # define THINKING 2
 # define FORK 3
 # define DIED 4
-// # define DROP 5
+
+// colours
+# define RED "\033[1;31m"
+# define GREEN "\033[0;32m"
+# define YELLOW "\033[0;33m"
+# define PURPLE "\033[0;35m"
+# define CYAN "\033[0;36m"
+# define RESET "\033[0m"
 
 typedef struct s_philo {
 	struct s_data	*data;

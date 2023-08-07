@@ -33,7 +33,7 @@ $(NAME): $(OBJS)
 	$(CC) $(OBJS) -o $(NAME)
 	$(info CREATED $(NAME))
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c Makefile
 	$(DIR_DUP)
 	$(CC) $(CFLAGS) $(CPPFLAGS) -c -o $@ $<
 	$(info CREATED $@)
