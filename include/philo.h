@@ -6,7 +6,7 @@
 /*   By: mehdimirzaie <mehdimirzaie@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 21:37:01 by mehdimirzai       #+#    #+#             */
-/*   Updated: 2023/08/07 22:49:39 by mehdimirzai      ###   ########.fr       */
+/*   Updated: 2023/08/08 09:18:54 by mehdimirzai      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <unistd.h>
 # include <sys/time.h>
 // remove latter
-# include <string.h>
+// # include <string.h>
 
 // states
 # define EATING 0
